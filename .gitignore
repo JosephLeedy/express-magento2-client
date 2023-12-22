@@ -1,0 +1,10 @@
+*.log
+.env*
+!.env.dist
+.eslintcache
+.idea/
+.npm
+.stylelintcache
+coverage
+dist
+node_modules/
