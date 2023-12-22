@@ -9,9 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-  },
   "devDependencies": {
+    "typescript": "^5.3.3"
   },
   "repository": {
     "type": "git",
