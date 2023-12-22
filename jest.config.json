@@ -1,0 +1,7 @@
+{
+  "coverageProvider": "v8",
+  "roots": [
+    "<rootDir>/src"
+  ],
+  "verbose": true
+}
