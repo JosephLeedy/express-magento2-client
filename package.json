@@ -7,7 +7,14 @@
   "license": "MIT",
   "main": "main.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx src/main.ts",
+    "dev:watch": "tsx --watch src/main.ts",
+    "build": "swc src -d dist",
+    "build:watch": "swc src -d dist -w",
+    "lint": "eslint src",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "start": "NODE_ENV=production node dist/main.js"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
