@@ -11,6 +11,7 @@
     "baseUrl": "."
   },
   "exclude": [
+    ".d.ts",
     ".test.ts",
     ".spec.ts"
   ],
