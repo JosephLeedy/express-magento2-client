@@ -1,4 +1,4 @@
-import { Server } from 'node:http'
+import type {Server} from 'node:http'
 import express, {Request, Response} from 'express'
 import './config'
 
