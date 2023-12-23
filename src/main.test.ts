@@ -11,7 +11,7 @@ describe('Index Route', (): void => {
         request(app)
             .get('/')
             .then((response: Response): void => {
-                expect(response.text).toEqual('Happy birthday! 🎂')
+                expect(response.text).toEqual('Nothing to see here, move along!')
                 expect(response.statusCode).toEqual(200)
             })
             .finally(done)
