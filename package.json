@@ -2,6 +2,7 @@
   "name": "@joseph-leedy/express-magento2-oauth",
   "private": true,
   "version": "0.1.0",
+  "type": "module",
   "description": "ExpressJS Magento2 OAuth client app",
   "author": "Joseph Leedy",
   "license": "MIT",

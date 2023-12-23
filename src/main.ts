@@ -1,7 +1,7 @@
 import type {Server} from 'node:http'
 import express from 'express'
-import './config'
-import routes from './routes'
+import './config.js'
+import routes from './routes.js'
 
 const app = express()
 const port: number = process.env.PORT || 3000
