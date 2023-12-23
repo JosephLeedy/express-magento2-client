@@ -1,5 +1,6 @@
 import { Server } from 'node:http'
 import express, {Request, Response} from 'express'
+import './config'
 
 const app = express()
 export let server: Server

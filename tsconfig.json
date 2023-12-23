@@ -6,6 +6,10 @@
     /* Modules */
     "module": "commonjs",
     "rootDir": "./src",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
 
     /* JavaScript Support */
     "allowJs": false,
