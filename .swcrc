@@ -10,6 +10,10 @@
     "target": "es2016",
     "baseUrl": "."
   },
+  "exclude": [
+    ".test.ts",
+    ".spec.ts"
+  ],
   "module": {
     "type": "commonjs"
   }
