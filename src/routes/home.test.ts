@@ -1,6 +1,6 @@
 import request from 'supertest'
 import type {Response} from 'supertest'
-import app, {server} from './main.js'
+import app, {server} from '../main.js'
 
 describe('Index Route', (): void => {
     afterAll((): void => {
