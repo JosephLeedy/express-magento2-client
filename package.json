@@ -14,7 +14,7 @@
     "build:watch": "swc src -d dist -w",
     "lint": "eslint src",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "start": "NODE_ENV=production node dist/main.js"
   },
   "dependencies": {
