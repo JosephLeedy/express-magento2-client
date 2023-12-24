@@ -13,7 +13,7 @@
     "build": "swc src -d dist",
     "build:watch": "swc src -d dist -w",
     "lint": "eslint src",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:coverage": "jest --coverage",
     "start": "NODE_ENV=production node dist/main.js"
   },
