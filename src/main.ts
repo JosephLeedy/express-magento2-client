@@ -5,7 +5,14 @@ import routes from './routes.js'
 
 const app = express()
 const port: number = process.env.PORT || 3000
+const exitGracefully = async (): Promise<void> => {
+    server.close()
+
+    process.exitCode = 0
+}
 export let server: Server
+
+process.on('SIGINT', exitGracefully)
 
 app.use('/', routes)
 
