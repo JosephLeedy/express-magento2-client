@@ -1,5 +1,9 @@
 {
   "coverageProvider": "v8",
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "/test/"
+  ],
   "extensionsToTreatAsEsm": [
     ".ts"
   ],
