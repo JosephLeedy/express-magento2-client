@@ -11,6 +11,10 @@ await import('glob')
 const router: Router = (await import('./routes.js') as {default: Router}).default
 
 describe('Routes Loader', (): void => {
+    afterEach((): void => {
+        jest.resetAllMocks()
+    })
+
     it('loads routes defined in routes directory', async (): Promise<void> => {
         const expectedRoutePaths: string[] = [
             '/',
