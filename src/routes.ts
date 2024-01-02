@@ -18,7 +18,7 @@ const routes: Router = Router()
 routes.use('/', homeRoutes)
 
 routeFiles.forEach(async (routeFile: string): Promise<void> => {
-    const fileName = path.basename(routeFile.replace(/\.ts$/, '.js'))
+    const fileName: string = path.basename(routeFile.replace(/\.ts$/, '.js'))
     const routerImport: {default: Router} = await import('./routes/' + fileName)
 
     routes.use('/' + path.basename(fileName, '.js'), routerImport.default)
