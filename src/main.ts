@@ -1,6 +1,7 @@
 import type {Server} from 'node:http'
 import express from 'express'
 import './config.js'
+import redisClient from './redis.js'
 import routes from './routes.js'
 
 const app = express()
@@ -8,11 +9,15 @@ const port: number = process.env.PORT || 3000
 const exitGracefully = async (): Promise<void> => {
     server.close()
 
+    await redisClient.quit()
+
     process.exitCode = 0
 }
 export let server: Server
 
 process.on('SIGINT', exitGracefully)
+
+await redisClient.connect()
 
 app.use('/', routes)
 
