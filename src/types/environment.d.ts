@@ -3,7 +3,7 @@ export {};
 declare global {
     namespace NodeJS {
         interface ProcessEnv {
-            PORT: number
+            PORT: string
             REDIS_HOST: string
             REDIS_PORT: string
             REDIS_SOCKET_PATH?: string

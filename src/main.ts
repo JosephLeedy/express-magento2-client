@@ -5,7 +5,7 @@ import redisClient from './redis.js'
 import routes from './routes.js'
 
 const app = express()
-const port: number = process.env.PORT || 3000
+const port: number = parseInt(process.env.PORT || '3000', 10)
 const exitGracefully = async (): Promise<void> => {
     server.close()
 
