@@ -1,3 +1,4 @@
+import redisClient from '../redis.js'
 import type {OauthCredentials, OauthRequestParameters, OauthToken} from '../types/Oauth.js'
 
 let crypto: typeof import('node:crypto')
@@ -62,3 +63,55 @@ export function buildOauthAuthorizationHeader(
         .join(', ')
 }
 
+export async function fetchAndStoreOauthToken(
+    oauthCredentials: OauthCredentials,
+    requestToken: OauthToken | null = null
+): Promise<OauthToken | null> {
+    const requestUrl: string = oauthCredentials.store_base_url
+        + (requestToken === null ? 'oauth/token/request' : 'oauth/token/access')
+    const authorizationHeader: string = buildOauthAuthorizationHeader(
+        'POST',
+        oauthCredentials,
+        requestUrl,
+        requestToken
+    )
+    const redisSubKey: string = requestToken === null ? 'REQUEST_TOKEN' : 'API_TOKEN'
+    let response: Response
+    let responseText: string
+    let responseTextParameters: URLSearchParams
+    let oauthToken: OauthToken | null = null
+
+    try {
+        response = await fetch(
+            requestUrl,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: authorizationHeader
+                }
+            }
+        )
+        responseText = await response.text()
+        responseTextParameters = new URLSearchParams(responseText)
+
+        if (!response.ok) {
+            console.error(
+                `\nCould not get %s token from Magento API. HTTP Status: %i %s. Error: %s\n`,
+                requestToken === null ? 'request' : 'api',
+                response.status,
+                response.statusText,
+                responseTextParameters.get('oauth_problem') ?? ''
+            )
+
+            return null
+        }
+
+        oauthToken = Object.fromEntries(responseTextParameters.entries()) as OauthToken
+
+        await redisClient.hSet(`PRODUCT_VIEWER:OAUTH:${redisSubKey}`, oauthToken)
+    } catch (error: unknown) {
+        console.error(error)
+    }
+
+    return oauthToken
+}

@@ -5,10 +5,16 @@ jest.unstable_mockModule('node:crypto', (): object => ({
     ...(jest.requireActual('node:crypto') as object),
     randomUUID: jest.fn((): string => '64760bfd-3b18-451f-b43b-a3edc4486567')
 }))
+jest.unstable_mockModule('../redis.js', (): object => ({
+    default: {
+        hSet: jest.fn()
+    }
+}))
 
 await import('node:crypto')
 
-const {buildOauthAuthorizationHeader} = await import('./oauth.js')
+const redisClient = (await import('../redis.js')).default
+const {buildOauthAuthorizationHeader, fetchAndStoreOauthToken} = await import('./oauth.js')
 
 describe('OAuth Helper', (): void => {
     describe('Build OAuth Authorization Header', (): void => {
@@ -69,5 +75,105 @@ describe('OAuth Helper', (): void => {
                 jest.useRealTimers()
             }
         )
+    })
+
+    describe('Fetch and Store OAuth Token', (): void => {
+        afterEach((): void => {
+            jest.restoreAllMocks()
+        })
+
+        it.each(
+            [
+                {
+                    tokenType: 'a request token',
+                    requestUrl: 'https://magento.test/oauth/token/request',
+                    requestToken: null,
+                    redisSubKey: 'REQUEST_TOKEN'
+                },
+                {
+                    tokenType: 'an api token',
+                    requestUrl: 'https://magento.test/oauth/token/access',
+                    requestToken: {
+                        oauth_token: 'yw5ae9f3ptz9u9qkuuyex183idqfzhxy',
+                        oauth_token_secret: 'ltd3zsqu6s4oiprzjz3syxb2u62wtahx'
+                    },
+                    redisSubKey: 'API_TOKEN'
+                }
+            ]
+        )(
+            'fetches a $tokenType token from the Magento API and stores it in Redis',
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            async ({tokenType, requestUrl, requestToken, redisSubKey}): Promise<void> => {
+                const fetchSpy: jest.SpiedFunction<typeof fetch> = jest.spyOn(global, 'fetch')
+                    .mockImplementation(
+                        (): Promise<Response> => Promise.resolve(
+                            {
+                                ok: true,
+                                status: 200,
+                                text: (): Promise<string> => Promise.resolve(
+                                    'oauth_token=7ol0bz55k80d3z499nr10c3at9wprrkc'
+                                    + '&oauth_token_secret=v768p9ivf0h27o9x54n4v2xvs5ipkq8w'
+                                )
+                            } as Response
+                        )
+                    )
+                const oauthCredentials: OauthCredentials = {
+                    oauth_consumer_key: 'ivj07l9ik7gpyooyrolunyhusuldkbxw',
+                    oauth_consumer_secret: 'oeforph3omea4cmmpu59rpmrte3aoil0',
+                    store_base_url: 'https://magento.test/',
+                    oauth_verifier: 'v768p9ivf0h27o9x54n4v2xvs5ipkq8w'
+                }
+                const expectedFetchOptions: RequestInit = {
+                    method: 'POST',
+                    headers: {
+                        Authorization: buildOauthAuthorizationHeader('POST', oauthCredentials, requestUrl, requestToken)
+                    }
+                }
+                const expectedOauthToken: OauthToken = {
+                    oauth_token: '7ol0bz55k80d3z499nr10c3at9wprrkc',
+                    oauth_token_secret: 'v768p9ivf0h27o9x54n4v2xvs5ipkq8w'
+                }
+                const actualOauthToken: OauthToken | null =
+                    await fetchAndStoreOauthToken(oauthCredentials, requestToken)
+
+                expect(actualOauthToken).toEqual(expectedOauthToken)
+                expect(fetchSpy).toBeCalledWith(requestUrl, expectedFetchOptions)
+                expect(redisClient.hSet).toBeCalledWith(`PRODUCT_VIEWER:OAUTH:${redisSubKey}`, expectedOauthToken)
+            }
+        )
+
+        it('logs an error to the console if the token request fails', async (): Promise<void> => {
+            jest.spyOn(global, 'fetch').mockImplementation(
+                (): Promise<Response> => Promise.resolve(
+                    {
+                        ok: false,
+                        status: 401,
+                        statusText: 'Not Authorized',
+                        text: (): Promise<string> => Promise.resolve(
+                            'oauth_problem=The%20signature%20is%20invalid.%20Verify%20and%20try%20again.'
+                        )
+                    } as Response
+                )
+            )
+
+            const consoleErrorSpy = jest.spyOn(console, 'error')
+                .mockImplementation(jest.fn)
+            const oauthCredentials: OauthCredentials = {
+                oauth_consumer_key: 'ivj07l9ik7gpyooyrolunyhusuldkbxw',
+                oauth_consumer_secret: 'oeforph3omea4cmmpu59rpmrte3aoil0',
+                store_base_url: 'https://magento.test/',
+                oauth_verifier: 'v768p9ivf0h27o9x54n4v2xvs5ipkq8w'
+            }
+            const result: OauthToken | null = await fetchAndStoreOauthToken(oauthCredentials)
+
+            expect(result).toBeNull()
+            expect(consoleErrorSpy).toBeCalledWith(
+                '\nCould not get %s token from Magento API. HTTP Status: %i %s. Error: %s\n',
+                'request',
+                401,
+                'Not Authorized',
+                'The signature is invalid. Verify and try again.'
+            )
+        })
     })
 })
