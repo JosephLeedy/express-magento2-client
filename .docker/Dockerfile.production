@@ -1,0 +1,31 @@
+FROM node:lts-slim as node
+
+WORKDIR /srv/app
+
+FROM node as build
+
+ENV NODE_ENV development
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+FROM node as app
+
+ENV NODE_ENV production
+
+COPY package*.json ./
+COPY --from=build /srv/app/dist ./dist
+
+RUN npm ci
+RUN chown -R node:node /srv/app
+
+EXPOSE 3100
+
+USER node
+
+CMD ["npm", "start"]

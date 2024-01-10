@@ -6,7 +6,7 @@ end_of_line = lf
 indent_style = space
 indent_size = 4
 
-[{*.json,.swcrc}]
+[{*.json,.swcrc,*.yml}]
 indent_size = 2
 
 [{*.js,*.ts}]

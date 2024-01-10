@@ -20,6 +20,11 @@ production environments.
 
 ## Installation
 
+### Bare Metal
+
+To run this application from a computer or server that has all of required 
+software installed, please follow these steps:
+
 1. Clone this project from the [GitHub repository][repo] using this command:
 
        git clone https://github.com/JosephLeedy/express-magento2-oauth.git
@@ -38,6 +43,34 @@ mode:
 **Note**: The above commands should be run a terminal window on the machine 
 where you intend to install and run the application (e.g. your local computer 
 or a remote server).
+
+### Docker
+
+If you cannot or do not wish to install the required software, a Docker
+environment is provided for convenience. To start it, please run these commands 
+from your terminal:
+
+1. `git clone https://github.com/JosephLeedy/express-magento2-oauth.git`
+2. `cd express-magento2-oauth`
+3. `MAGENTO_BASE_URL=https://magento.test docker compose up -d`
+
+**Notes**:
+1. [Docker Compose] is a pre-requisite for using this environment
+2. Replace "magento.test" with the URL of the store that you are integrating 
+with
+3. The default URLs are `https://app.product-viewer.test:4443` for production 
+mode and `https://dev.app.product-viewer.test:4443` for development mode
+   - Use the production mode URL to configure your integration (see Usage below)
+4. Nginx is configured to proxy requests from port 4443 to prevent conflicts 
+with other applications that may be using the same port locally
+5. The [mkcert] tool is used to generate a self-signed TLS certificate
+   - You will need to download the root CA chain certificate from 
+   http://app.product-viewer.test:81/rootCA.pem and install it on your local 
+   computer for requests to be allowed by your Web browser
+6. Redis is exposed on port 6380. To connect to it from your local computer, 
+run this command:
+
+       redis-cli -h 127.0.0.1 -p 6380
 
 ## Configuration
 
@@ -119,6 +152,8 @@ document.
 [Mage-OS]: https://mage-os.org
 [Redis]: https://redis.io
 [repo]: https://github.com/JosephLeedy/express-magento2-oauth
+[Docker Compose]: https://docs.docker.com/compose
+[mkcert]: https://github.com/FiloSottile/mkcert
 [issues]: https://github.com/JosephLeedy/express-magento2-oauth/issues
 [LICENSE]: ./LICENSE
 [Changelog]: ./CHANGELOG.md

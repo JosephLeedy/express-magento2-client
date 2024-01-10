@@ -1,0 +1,54 @@
+version: "3.8"
+
+name: express-magento-2-oauth
+
+services:
+  redis:
+    image: redis:7.2-alpine
+    restart: always
+    ports:
+      - 6380:6379
+    command: redis-server --save 20 1 --loglevel warning
+
+  app-dev:
+    depends_on:
+      - redis
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile.development
+    volumes:
+      - ./src:/srv/app/src
+      - ./test:/srv/app/test
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DATABASE: 0
+      MAGENTO_BASE_URL: ${MAGENTO_BASE_URL}
+
+  app-prod:
+    depends_on:
+      - redis
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile.production
+    ports:
+      - 3100:3100
+    environment:
+      PORT: 3100
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DATABASE: 1
+      MAGENTO_BASE_URL: ${MAGENTO_BASE_URL}
+
+  nginx:
+    depends_on:
+      - app-dev
+      - app-prod
+    build:
+      context: ./.docker/nginx
+    ports:
+      - 4443:443
+      - 81:80
