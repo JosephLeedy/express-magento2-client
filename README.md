@@ -3,7 +3,8 @@ by Joseph Leedy
 
 Express Magento 2 OAuth Client is a backend application that facilitates
 communication with Magento Open Source or Adobe Commerce for the purpose of
-requesting and storing an OAuth API token for an integration.
+requesting and storing an OAuth API token for an integration. It is intended 
+to be used alongside the [React Product Viewer] frontend application.
 
 **Note**: This application is provided as-is without warranty for fitness or
 merchantability for any particular purpose. It is not intended for use in
@@ -110,6 +111,7 @@ details.
 A record of all changes made to this application can be found in the [Changelog]
 document.
 
+[React Product Viewer]: https://github.com/JosephLeedy/react-product-viewer
 [Node.js]: https://nodejs.org
 [NPM]: https://www.npmjs.com/package/npm
 [Adobe Commerce]: https://business.adobe.com/products/magento/magento-commerce.html
