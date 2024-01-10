@@ -13,7 +13,8 @@
   "exclude": [
     ".d.ts",
     ".test.ts",
-    ".spec.ts"
+    ".spec.ts",
+    "types/"
   ],
   "module": {
     "type": "es6"
