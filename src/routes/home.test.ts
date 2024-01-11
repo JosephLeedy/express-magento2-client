@@ -1,13 +1,21 @@
+import {jest} from '@jest/globals'
 import request from 'supertest'
 import type {Response} from 'supertest'
-import app, {server} from '../main.js'
+
+jest.unstable_mockModule('../redis.js', (): object => ({
+    default: {
+        connect: jest.fn(),
+    }
+}))
+
+const {default: app, server} = await import( '../main.js')
 
 describe('Index Route', (): void => {
     afterAll((): void => {
         server.close()
     })
 
-    it('sends a message with a status of OK', (done: jest.DoneCallback): void => {
+    it('sends a message with a status of OK', (done: globalThis.jest.DoneCallback): void => {
         request(app)
             .get('/')
             .then((response: Response): void => {
