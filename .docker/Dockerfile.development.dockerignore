@@ -1,0 +1,8 @@
+.docker/
+.idea/
+.DS_Store
+.env*
+!.env.dist
+dist/
+coverage/
+node_modules/
