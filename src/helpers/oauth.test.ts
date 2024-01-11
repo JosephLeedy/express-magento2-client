@@ -13,7 +13,7 @@ jest.unstable_mockModule('../redis.js', (): object => ({
 
 await import('node:crypto')
 
-const redisClient = (await import('../redis.js')).default
+const {default: redisClient} = await import('../redis.js')
 const {buildOauthAuthorizationHeader, fetchAndStoreOauthToken} = await import('./oauth.js')
 
 describe('OAuth Helper', (): void => {

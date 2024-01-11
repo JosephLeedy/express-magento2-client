@@ -1,5 +1,4 @@
 import {jest} from '@jest/globals'
-import {Router} from 'express'
 
 jest.unstable_mockModule('glob', () => ({
     glob: jest.fn(() => [
@@ -8,7 +7,7 @@ jest.unstable_mockModule('glob', () => ({
 }))
 
 await import('glob')
-const router: Router = (await import('./routes.js') as {default: Router}).default
+const {default: router} = await import('./routes.js')
 
 describe('Routes Loader', (): void => {
     afterEach((): void => {

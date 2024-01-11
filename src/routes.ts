@@ -23,15 +23,15 @@ routeFiles.forEach(async (routeFile: string): Promise<void> => {
     let routePath = path.relative(
         path.dirname(fileURLToPath(import.meta.url)), path.dirname(routeFile) + '/' + fileName
     )
-    let routerImport: {default: Router}
+    let router: Router
 
     if (!routePath.startsWith('.')) {
         routePath = './' + routePath
     }
 
-    routerImport = await import(routePath)
+    ({default: router} = await import(routePath))
 
-    routes.use('/' + path.basename(fileName, '.js'), routerImport.default)
+    routes.use('/' + path.basename(fileName, '.js'), router)
 })
 
 export default routes
