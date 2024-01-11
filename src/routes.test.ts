@@ -20,7 +20,7 @@ describe('Routes Loader', (): void => {
             '/',
             '/bar',
         ]
-        const actualRoutePaths: string[] = router.stack[1].handle.stack.map(
+        const actualRoutePaths: string[] = router.stack[1]?.handle?.stack.map(
             (layer: {route: {path: string}}): string => layer.route.path
         )
 
