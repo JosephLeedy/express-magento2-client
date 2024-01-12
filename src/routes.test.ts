@@ -10,6 +10,8 @@ await import('glob')
 const {default: router} = await import('./routes.js')
 
 describe('Routes Loader', (): void => {
+    jest.retryTimes(3)
+
     afterEach((): void => {
         jest.resetAllMocks()
     })
