@@ -1,4 +1,5 @@
 .docker/
+.github/
 .idea/
 .DS_Store
 .env*
