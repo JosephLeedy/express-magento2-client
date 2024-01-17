@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "tsx src/main.ts",
     "dev:watch": "tsx --watch src/main.ts",
+    "dev:debug": "tsx --inspect-brk src/main.ts",
     "build": "swc src -d dist",
     "build:watch": "swc src -d dist -w",
     "lint": "eslint src",
