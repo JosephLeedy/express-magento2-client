@@ -55,6 +55,9 @@ describe('OAuth Helper', (): void => {
                     oauth_token: '94c4lo4teducsbxhtan5qsroaj3au8yo',
                     oauth_token_secret: '82puk5fh3ha45er3dfvpi6r04nrpulee'
                 }
+                const searchParameters: string = Array.from(new URL(requestUrl).searchParams.entries())
+                    .map(([key, value]): string => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+                    .join(', ')
                 const expectedHeader: string = 'OAuth oauth_consumer_key=hlxtlxx0h17jedm52rq2sm7722x4p1m8, '
                     + 'oauth_nonce=64760bfd3b18451fb43ba3edc4486567, '
                     + `oauth_signature=${oauthSignature}, `
@@ -63,6 +66,7 @@ describe('OAuth Helper', (): void => {
                     + 'oauth_token=94c4lo4teducsbxhtan5qsroaj3au8yo, '
                     + 'oauth_verifier=ugh0thz43kjdwr9ty4yilfsvy7ckloim, '
                     + 'oauth_version=1.0'
+                    + (searchParameters.length > 0 ? `, ${searchParameters}` : '')
                 const actualHeader: string = buildOauthAuthorizationHeader(
                     requestMethod,
                     oauthCredentials,

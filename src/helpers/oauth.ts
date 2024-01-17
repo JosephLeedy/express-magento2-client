@@ -24,23 +24,19 @@ export function buildOauthAuthorizationHeader(
         oauth_verifier: requestToken !== null ? oauthCredentials.oauth_verifier : null,
         oauth_version: '1.0'
     }
-    const parameters: [string, string][] = (
+    const url: URL = new URL(requestUrl)
+    const parameters: string[] = (
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             Object.entries(requestParameters).filter(([_key, value]): boolean => value !== null) as [string, string][]
-        ).sort(
+        ).concat(Array.from(url.searchParams.entries()))
+        .sort(
             (parameterA: [string, string], parameterB: [string, string]): number => {
                 return parameterA[0] < parameterB[0] ? -1 : 1
             }
-        )
-    const url: URL = new URL(requestUrl)
-    const searchParameters: string = Array.from(url.searchParams.entries())
-        .map(([key, value]): string => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-        .join('&')
-    const signatureParameters: string = parameters.map(([key, value]): string => `${key}=${value}`).join('&')
-        + (searchParameters.length > 0 ? '&' + searchParameters : '')
+        ).map(([key, value]): string => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
     const signature: string = `${httpMethod.toUpperCase()}&`
         + encodeURIComponent(`${url.protocol}//${url.host}${url.pathname}`) + '&'
-        + encodeURIComponent(signatureParameters)
+        + encodeURIComponent(parameters.join('&'))
     const hashedSignature = crypto.createHmac(
             'sha256',
             encodeURIComponent(oauthCredentials.oauth_consumer_secret) + '&'
@@ -49,18 +45,13 @@ export function buildOauthAuthorizationHeader(
         .digest()
         .toString('base64')
 
-    parameters.push([
-        'oauth_signature',
-        hashedSignature
-    ])
+    parameters.splice(
+        parameters.findIndex((value: string): boolean => value.startsWith('oauth_signature_method')),
+        0,
+        `oauth_signature=${encodeURIComponent(hashedSignature)}`
+    )
 
-    return 'OAuth '
-        + parameters.sort(
-            (parameterA: [string, string], parameterB: [string, string]): number => {
-                return parameterA[0] < parameterB[0] ? -1 : 1
-            }
-        ).map(([key, value]): string => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-        .join(', ')
+    return `OAuth ${parameters.join(', ')}`
 }
 
 export async function fetchAndStoreOauthToken(
