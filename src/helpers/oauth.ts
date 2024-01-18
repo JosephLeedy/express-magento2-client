@@ -99,7 +99,7 @@ export async function fetchAndStoreOauthToken(
 
         oauthToken = Object.fromEntries(responseTextParameters.entries()) as OauthToken
 
-        await redisClient.hSet(`PRODUCT_VIEWER:OAUTH:${redisSubKey}`, oauthToken)
+        await redisClient.hSet(`OAUTH:${redisSubKey}`, oauthToken)
     } catch (error: unknown) {
         console.error(error)
     }

@@ -88,7 +88,7 @@ describe('OAuth Routes', (): void => {
                     .set('Content-Type', 'application/x-www-form-urlencoded')
                     .send(oauthCredentials)
                     .then((response: Response): void => {
-                        expect(redisClient.hSet).toBeCalledWith('PRODUCT_VIEWER:OAUTH:CREDENTIALS', oauthCredentials)
+                        expect(redisClient.hSet).toBeCalledWith('OAUTH:CREDENTIALS', oauthCredentials)
                         expect(response.statusCode).toEqual(200)
                     })
                     .finally(done)

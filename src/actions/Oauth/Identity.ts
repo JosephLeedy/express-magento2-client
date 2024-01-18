@@ -18,7 +18,7 @@ export default async function Identity(request: Request, response: ExpressRespon
         return
     }
 
-    oauthCredentials = (await redisClient.hGetAll('PRODUCT_VIEWER:OAUTH:CREDENTIALS') ?? {}) as OauthCredentials
+    oauthCredentials = (await redisClient.hGetAll('OAUTH:CREDENTIALS') ?? {}) as OauthCredentials
 
     if (Object.keys(oauthCredentials).length === 0) {
         response.status(400).send('OAuth callback was not previously called')

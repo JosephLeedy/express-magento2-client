@@ -20,7 +20,7 @@ export default async function Callback(request: Request, response: Response): Pr
         return
     }
 
-    await redisClient.hSet('PRODUCT_VIEWER:OAUTH:CREDENTIALS', request.body)
+    await redisClient.hSet('OAUTH:CREDENTIALS', request.body)
 
     response.sendStatus(200)
 }

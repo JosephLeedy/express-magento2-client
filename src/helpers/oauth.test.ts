@@ -142,7 +142,7 @@ describe('OAuth Helper', (): void => {
 
                 expect(actualOauthToken).toEqual(expectedOauthToken)
                 expect(fetchSpy).toBeCalledWith(requestUrl, expectedFetchOptions)
-                expect(redisClient.hSet).toBeCalledWith(`PRODUCT_VIEWER:OAUTH:${redisSubKey}`, expectedOauthToken)
+                expect(redisClient.hSet).toBeCalledWith(`OAUTH:${redisSubKey}`, expectedOauthToken)
             }
         )
 
