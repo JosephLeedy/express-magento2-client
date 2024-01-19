@@ -1,6 +1,7 @@
 import type {Server} from 'node:http'
 import express from 'express'
 import type {Express} from 'express'
+import cors from 'cors'
 import './config.js'
 import redisClient from './redis.js'
 import routes from './routes.js'
@@ -20,6 +21,7 @@ process.on('SIGINT', exitGracefully)
 
 await redisClient.connect()
 
+app.use(cors({origin: process.env.FRONTEND_URL}))
 app.use('/', routes)
 
 server = app.listen(port, (): void => {
