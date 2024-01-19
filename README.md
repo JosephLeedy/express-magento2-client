@@ -80,6 +80,7 @@ function properly:
 | Name                       | Default   | Description                                                                         |
 |----------------------------|-----------|-------------------------------------------------------------------------------------|
 | PORT                       | 3000      | Port to listen for requests on                                                      |
+| FRONTEND_URL               | ""        | Frontend Application URL                                                            |
 | REDIS_HOST                 | 127.0.0.1 | URL or IP address used for connecting to Redis                                      |
 | REDIS_PORT                 | 6379      | Port to connect to Redis on (e.g. "6379")                                           |
 | REDIS_DATABASE             | 0         | Number of the Redis database used to store application data                         |

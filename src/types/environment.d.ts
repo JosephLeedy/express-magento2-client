@@ -4,6 +4,7 @@ declare global {
     namespace NodeJS {
         interface ProcessEnv {
             PORT: string
+            FRONTEND_URL: string
             REDIS_HOST: string
             REDIS_PORT: string
             REDIS_SOCKET_PATH?: string
