@@ -9,6 +9,8 @@ services:
     ports:
       - 6380:6379
     command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - redis:/data
 
   app-dev:
     depends_on:
@@ -52,3 +54,6 @@ services:
     ports:
       - 4443:443
       - 81:80
+
+volumes:
+  redis:
