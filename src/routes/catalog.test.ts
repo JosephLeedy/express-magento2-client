@@ -9,7 +9,9 @@ import productData from '../../test/data/products.json' assert {type: 'json'}
 jest.unstable_mockModule('../redis.js', (): object => ({
     default: {
         connect: jest.fn(),
+        get: jest.fn(),
         hGetAll: jest.fn(),
+        set: jest.fn(),
     }
 }))
 jest.unstable_mockModule('../helpers/oauth.js', (): object => ({
@@ -181,4 +183,27 @@ describe('Catalog Routes', (): void => {
                 }).finally(done)
         }
     )
+
+    it('returns cached results from a previous request', (done: globalJest.DoneCallback): void => {
+        (redisClient.get as jest.Mock)
+            .mockImplementationOnce(
+                (): Promise<string> => Promise.resolve(
+                    JSON.stringify(
+                        {
+                            status: 200,
+                            json: productData
+                        }
+                    )
+                )
+            )
+
+        expect.assertions(2)
+
+        request(app)
+            .get('/catalog/products/searchCriteria=')
+            .then((response: StResponse): void => {
+                expect(response.statusCode).toEqual(200)
+                expect(response.body).toEqual(productData)
+            }).finally(done)
+    })
 })

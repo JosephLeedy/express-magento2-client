@@ -15,6 +15,7 @@ declare global {
             REDIS_TLS_KEY_PATH?: string
             REDIS_TLS_CERTIFICATE_PATH?: string
             REDIS_TLS_CERT_AUTHORITY_PATH?: string
+            REDIS_CACHE_TTL: string
             MAGENTO_BASE_URL: string
         }
     }

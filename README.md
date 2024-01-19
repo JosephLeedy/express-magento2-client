@@ -88,6 +88,7 @@ function properly:
 | REDIS_TLS_KEY_PATH         | ""        | Path to key for the configured TLS certificate (required if TLS is enabled)         |
 | REDIS_TLS_CERTIFICATE_PATH | ""        | Path to the TLS certificate used to secure connections (required if TLS is enabled) |
 | MAGENTO_BASE_URL           | ""        | Base URL of the connected Magento, Adobe Commerce or Mage-OS store                  |
+| REDIS_CACHE_TTL            | 3600      | Number of seconds to store cached data in Redis for                                 |
 
 ### Optional Settings
 
