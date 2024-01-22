@@ -19,8 +19,8 @@ jest.unstable_mockModule('../helpers/oauth.js', (): object => ({
     fetchAndStoreOauthToken: jest.fn()
 }))
 
-const {default: app, server} = await import( '../main.js')
-const {default: redisClient} = await import( '../redis.js')
+const {default: app, server} = await import('../main.js')
+const {default: redisClient} = await import('../redis.js')
 
 describe('Catalog Routes', (): void => {
     const originalProcessEnv: NodeJS.ProcessEnv = process.env
