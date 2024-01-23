@@ -41,5 +41,5 @@ parameters
 
 [kac]: https://keepachangelog.com/en/1.0.0/
 [semver]: https://semver.org/spec/v2.0.0.html
-[Unreleased]: https://github.com/JosephLeedy/express-magento2-client/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/JosephLeedy/express-magento2-client/compare/1.0.0...HEAD
 [1.0.0]: https://github.com/JosephLeedy/express-magento2-client/releases/tag/1.0.0
