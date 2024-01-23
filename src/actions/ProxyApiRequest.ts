@@ -1,8 +1,15 @@
 import {Request, Response as ExpressResponse} from 'express'
-import {createHash} from 'node:crypto'
 import redisClient from '../redis.js'
 import {buildOauthAuthorizationHeader} from '../helpers/oauth.js'
 import type {OauthCredentials, OauthToken} from '../types/Oauth.js'
+
+let crypto: typeof import('node:crypto')
+
+try {
+    crypto = await import('node:crypto')
+} catch (_error: unknown) {
+    console.error('Crypto support is disabled')
+}
 
 type ApiRequestResult = {
     status: number
@@ -23,7 +30,7 @@ export default async function ProxyApiRequest(request: Request, response: Expres
         requestUrl += `?${request.params.parameters}`
     }
 
-    requestUrlHash = createHash('SHA1').update(requestUrl).digest('hex')
+    requestUrlHash = crypto.createHash('SHA1').update(requestUrl).digest('hex')
     cachedRequestResult = JSON.parse(await redisClient.get(`REQUEST:${requestUrlHash}`) ?? '{}') as ApiRequestResult
 
     if (Object.keys(cachedRequestResult).length > 0) {
