@@ -125,9 +125,6 @@ your _real_ domain name where this application is hosted):
 7. Ensure that the "Status" column changes to "Active"
 8. If the integration fails to activate, check the terminal window that is
 running this application for any errors that may have been output there
-9. Once the integration has been successfully activated, this application can be
-shut down by pressing the Control and C (CTRL+C) keys simultaneously in the
-terminal window where it was started
 
 ## Support
 
