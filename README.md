@@ -127,6 +127,19 @@ your _real_ domain name where this application is hosted):
 8. If the integration fails to activate, check the terminal window that is
 running this application for any errors that may have been output there
 
+### Endpoints
+
+| URI                           | Description                                                                                             |
+|-------------------------------|---------------------------------------------------------------------------------------------------------|
+| /catalog/categories           | Retrieves the full list of categories from the Magento or Adobe Commerce API                            |
+| /catalog/products/:parameters | Retrieves the products from the Magento or Adobe Commerce API matching the given parameters<sup>1</sup> |
+| /oauth/callback               | Receives OAuth credentials from Magento or Adobe Commerce                                               |
+| /oauth/identity               | Exchanges the previously received OAuth credentials for a request token and an API token                |
+
+<sup>1</sup>Example products request:
+`https://app.product-viewer.test/catalog/products/searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=42`. 
+See the [Adobe Commerce API Documentation] for more details.
+
 ## Support
 
 This project is not intended for real-world usage, therefore no support is
@@ -154,6 +167,7 @@ document.
 [repo]: https://github.com/JosephLeedy/express-magento2-client
 [Docker Compose]: https://docs.docker.com/compose
 [mkcert]: https://github.com/FiloSottile/mkcert
+[Adobe Commerce API Documentation]: https://developer.adobe.com/commerce/webapi/rest/use-rest/performing-searches
 [issues]: https://github.com/JosephLeedy/express-magento2-client/issues
 [LICENSE]: ./LICENSE
 [Changelog]: ./CHANGELOG.md
