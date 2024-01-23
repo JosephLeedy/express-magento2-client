@@ -104,6 +104,8 @@ details about the configuration settings can be found in the `.env.dist` file.
 
 ## Usage
 
+### Setting Up an Integration in Magento Open Source, Adobe Commerce or Mage-OS
+
 Once the application is configured and running, please follow these instructions
 to set up a new integration in your Magento Open Source, Adobe Commerce or 
 Mage-OS store:
