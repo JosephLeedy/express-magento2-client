@@ -1,6 +1,6 @@
 version: "3.8"
 
-name: express-magento-2-oauth
+name: express-magento2-client
 
 services:
   redis:

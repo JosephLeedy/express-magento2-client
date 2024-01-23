@@ -1,9 +1,9 @@
 {
-  "name": "@joseph-leedy/express-magento2-oauth",
+  "name": "@joseph-leedy/express-magento2-client",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "ExpressJS Magento2 OAuth client app",
+  "description": "ExpressJS Magento2 API client app",
   "author": "Joseph Leedy",
   "license": "MIT",
   "main": "main.ts",
@@ -45,18 +45,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JosephLeedy/express-magento2-oauth"
+    "url": "https://github.com/JosephLeedy/express-magento2-client"
   },
   "keywords": [
-    "oauth",
     "magento",
     "adobe",
     "commerce"
   ],
   "bugs": {
-    "url": "https://github.com/JosephLeedy/express-magento2-oauth/issues"
+    "url": "https://github.com/JosephLeedy/express-magento2-client/issues"
   },
-  "homepage": "https://github.com/JosephLeedy/express-magento2-oauth#readme",
+  "homepage": "https://github.com/JosephLeedy/express-magento2-client#readme",
   "engines": {
     "node": ">=18.0.0 < 22.0.0",
     "npm": "^10"

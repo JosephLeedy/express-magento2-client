@@ -1,10 +1,9 @@
-# Express Magento 2 OAuth Client
+# Express Magento 2 API Client
 by Joseph Leedy
 
-Express Magento 2 OAuth Client is a backend application that facilitates
-communication with Magento Open Source or Adobe Commerce for the purpose of
-requesting and storing an OAuth API token for an integration. It is intended 
-to be used alongside the [React Product Viewer] frontend application.
+Express Magento 2 API Client is a backend application that facilitates
+communication with a Magento Open Source or Adobe Commerce store. It is 
+intended to be used alongside the [React Product Viewer] frontend application.
 
 **Note**: This application is provided as-is without warranty for fitness or
 merchantability for any particular purpose. It is not intended for use in
@@ -27,10 +26,10 @@ software installed, please follow these steps:
 
 1. Clone this project from the [GitHub repository][repo] using this command:
 
-       git clone https://github.com/JosephLeedy/express-magento2-oauth.git
+       git clone https://github.com/JosephLeedy/express-magento2-client.git
 2. Install its dependencies with this command:
 
-       cd express-magento2-oauth && npm install
+       cd express-magento2-client && npm install
 3. Run this command to start the application in development mode:
 
        npm run dev
@@ -50,8 +49,8 @@ If you cannot or do not wish to install the required software, a Docker
 environment is provided for convenience. To start it, please run these commands 
 from your terminal:
 
-1. `git clone https://github.com/JosephLeedy/express-magento2-oauth.git`
-2. `cd express-magento2-oauth`
+1. `git clone https://github.com/JosephLeedy/express-magento2-client.git`
+2. `cd express-magento2-client`
 3. `MAGENTO_BASE_URL=https://magento.test docker compose up -d`
 
 **Notes**:
@@ -150,9 +149,9 @@ document.
 [Magento Open Source]: https://business.adobe.com/products/magento/open-source.html
 [Mage-OS]: https://mage-os.org
 [Redis]: https://redis.io
-[repo]: https://github.com/JosephLeedy/express-magento2-oauth
+[repo]: https://github.com/JosephLeedy/express-magento2-client
 [Docker Compose]: https://docs.docker.com/compose
 [mkcert]: https://github.com/FiloSottile/mkcert
-[issues]: https://github.com/JosephLeedy/express-magento2-oauth/issues
+[issues]: https://github.com/JosephLeedy/express-magento2-client/issues
 [LICENSE]: ./LICENSE
 [Changelog]: ./CHANGELOG.md
