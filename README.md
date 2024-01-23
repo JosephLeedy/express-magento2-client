@@ -22,7 +22,7 @@ production environments.
 
 ### Bare Metal
 
-To run this application from a computer or server that has all of required 
+To run this application from a computer or server that has all the required 
 software installed, please follow these steps:
 
 1. Clone this project from the [GitHub repository][repo] using this command:
