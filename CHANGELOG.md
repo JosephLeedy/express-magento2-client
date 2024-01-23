@@ -7,6 +7,33 @@ The format is based on [Keep a Changelog][kac], and this project adheres to
 
 ## [Unreleased]
 
+### Added
+- Requests for categories and products can now be passed through to the Magento 
+API via special `catalog/*` endpoints
+  - This functionality includes a new setting for the frontend application URL 
+  which is used to prevent CORS errors
+  - Data received from the Magento API is cached in Redis
+    - A new setting is included for configuring the cache lifetime
+- A Docker environment is now provided to aid in setting up and running the 
+project
+- GitHub meta files have been added to the repository
+
+### Changed
+- Project has been renamed to reflect increase in scope
+- Logic for generating OAuth Authorization header has been refactored
+- Code changes are now automatically linted and tested when they are pushed to 
+the `main` branch or a pull request is submitted against that branch
+
+### Fixed
+- "Address is already in use" errors are no longer thrown when running tests if 
+the application is already running in development mode
+- Unit test for the index route no longer overwrites data stored in Redis
+- Unit test for the router will attempt to pass up to three times before 
+throwing an error
+- Sort order for OAuth signature parameters now correctly includes query string 
+parameters
+- Query string parameters are now added to general OAuth parameters
+
 ## [1.0.0] - 2024-01-09
 
 ### Added
