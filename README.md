@@ -113,11 +113,11 @@ Mage-OS store:
 1. Log into your store's Admin panel
 2. Navigate to "System > Extensions > Integrations"
 3. Click on the "Add New Integration" button
-4. Configure the Integration Info as follows (replace "product-viewer.test" with
-your _real_ domain name where this application is hosted):
+4. Configure the Integration Info as follows (replace "app.product-viewer.test" 
+with your _real_ domain name where this application is hosted):
     - Name: `Product Viewer`
-    - Callback URL: `https://product-viewer.test/oauth/callback`
-    - Identity Link URL: `https://product-viewer.test/oauth/identity`
+    - Callback URL: `https://app.product-viewer.test/oauth/callback`
+    - Identity Link URL: `https://app.product-viewer.test/oauth/identity`
 5. Configure the API permissions as follows:
     - Resource Access: `Custom`
     - Resources: `Catalog > Inventory > Products`
