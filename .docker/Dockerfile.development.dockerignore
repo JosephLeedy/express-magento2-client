@@ -4,6 +4,7 @@
 .DS_Store
 .env*
 !.env.dist
+.nvmrc
 dist/
 coverage/
 node_modules/
