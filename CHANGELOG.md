@@ -17,6 +17,7 @@ API via special `catalog/*` endpoints
 - A Docker environment is now provided to aid in setting up and running the 
 project
 - GitHub meta files have been added to the repository
+- GitHub's Dependabot service is now used to keep dependencies updated
 
 ### Changed
 - Project has been renamed to reflect increase in scope
