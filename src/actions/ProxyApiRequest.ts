@@ -25,6 +25,7 @@ export default async function ProxyApiRequest(request: Request, response: Expres
     let accessToken: OauthToken
     let result: Response
     let resultJson: object
+    let errorMessage: string
 
     if (Object.prototype.hasOwnProperty.call(request.params, 'parameters')) {
         requestUrl += `?${request.params.parameters}`
@@ -64,21 +65,38 @@ export default async function ProxyApiRequest(request: Request, response: Expres
         return
     }
 
-    result = await fetch(
-        requestUrl,
-        {
-            method: request.method,
-            headers: {
-                Authorization: buildOauthAuthorizationHeader(
-                    request.method,
-                    oauthCredentials,
-                    requestUrl,
-                    accessToken
-                )
+    try {
+        result = await fetch(
+            requestUrl,
+            {
+                method: request.method,
+                headers: {
+                    Authorization: buildOauthAuthorizationHeader(
+                        request.method,
+                        oauthCredentials,
+                        requestUrl,
+                        accessToken
+                    )
+                }
             }
+        )
+        resultJson = await result.json()
+    } catch (error: unknown) {
+        console.error(error)
+
+        errorMessage = 'An unexpected error was encountered while sending the API request to Magento.'
+
+        if (error instanceof SyntaxError) {
+            errorMessage = 'Could not parse response from Magento as JSON.'
         }
-    )
-    resultJson = await result.json()
+
+        response.status(500)
+            .json({
+                message: errorMessage
+            })
+
+        return
+    }
 
     await redisClient.set(
         `REQUEST:${requestUrlHash}`,

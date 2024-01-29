@@ -41,6 +41,8 @@ describe('Catalog Routes', (): void => {
                 } as OauthToken)
             )
 
+        jest.spyOn(console, 'error').mockImplementation(jest.fn)
+
         process.env = {
             ...originalProcessEnv,
             MAGENTO_BASE_URL: 'https://magento.test'
@@ -179,6 +181,53 @@ describe('Catalog Routes', (): void => {
                     expect(response.body).toEqual({
                         message: 'Could not get OAuth access token. Please verify that the integration is set up '
                             + 'properly in Magento.'
+                    })
+                }).finally(done)
+        }
+    )
+
+    it(
+        'returns an error if an unknown error occurs while sending the request to the Magento API',
+        (done: globalJest.DoneCallback): void => {
+            expect.assertions(2)
+
+            jest.spyOn(global, 'fetch').mockImplementation(
+                (): Promise<Response> => Promise.reject(new TypeError('Network error'))
+            )
+
+            request(app)
+                .get('/catalog/categories')
+                .then((response: StResponse): void => {
+                    expect(response.statusCode).toEqual(500)
+                    expect(response.body).toEqual({
+                        message: 'An unexpected error was encountered while sending the API request to Magento.'
+                    })
+                }).finally(done)
+        }
+    )
+
+    it(
+        'returns an error if response from the Magento API cannot be parsed',
+        (done: globalJest.DoneCallback): void => {
+            expect.assertions(2)
+
+            jest.spyOn(global, 'fetch').mockImplementation(
+                (): Promise<Response> => Promise.resolve(
+                    {
+                        ok: false,
+                        status: 500,
+                        statusText: 'Internal Server Error',
+                        json: (): Promise<object> => Promise.reject(new SyntaxError('Could not parse "<" as JSON'))
+                    } as Response
+                )
+            )
+
+            request(app)
+                .get('/catalog/categories')
+                .then((response: StResponse): void => {
+                    expect(response.statusCode).toEqual(500)
+                    expect(response.body).toEqual({
+                        message: 'Could not parse response from Magento as JSON.'
                     })
                 }).finally(done)
         }
