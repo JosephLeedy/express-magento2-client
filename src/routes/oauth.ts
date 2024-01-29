@@ -1,6 +1,6 @@
 import {Router, urlencoded} from 'express'
-import Callback from '../actions/Oauth/Callback.js'
-import Identity from '../actions/Oauth/Identity.js'
+import Callback from '../handlers/Oauth/Callback.js'
+import Identity from '../handlers/Oauth/Identity.js'
 
 const oauthRoutes: Router = Router()
 
