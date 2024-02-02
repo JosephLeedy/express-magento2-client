@@ -16,6 +16,7 @@
     "lint": "eslint src",
     "test": "PORT=3001 NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
     "test:coverage": "PORT=3001 NODE_OPTIONS=--experimental-vm-modules jest --runInBand --coverage",
+    "test:mutate": "PORT=0 stryker run",
     "start": "NODE_ENV=production node dist/main.js"
   },
   "dependencies": {
