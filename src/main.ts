@@ -5,6 +5,7 @@ import cors from 'cors'
 import './config.js'
 import redisClient from './redis.js'
 import routes from './routes.js'
+import {AddressInfo} from 'node:net'
 
 const app: Express = express()
 const port: number = parseInt(process.env.PORT || '3000', 10)
@@ -25,7 +26,9 @@ app.use(cors({origin: process.env.FRONTEND_URL}))
 app.use('/', routes)
 
 server = app.listen(port, (): void => {
-    console.log(`Server is listening on port ${port}...\n`)
+    const listeningPort = (server.address() as AddressInfo).port
+
+    console.log(`Server is listening on port ${listeningPort}...\n`)
 })
 
 export default app

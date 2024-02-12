@@ -14,8 +14,8 @@
     "build": "swc src -d dist",
     "build:watch": "swc src -d dist -w",
     "lint": "eslint src",
-    "test": "PORT=3001 NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
-    "test:coverage": "PORT=3001 NODE_OPTIONS=--experimental-vm-modules jest --runInBand --coverage",
+    "test": "PORT=0 NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:coverage": "PORT=0 NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "start": "NODE_ENV=production node dist/main.js"
   },
   "dependencies": {
