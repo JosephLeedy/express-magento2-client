@@ -16,6 +16,7 @@
     "lint": "eslint src",
     "test": "PORT=0 NODE_OPTIONS=--experimental-vm-modules jest",
     "test:coverage": "PORT=0 NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "test:mutate": "PORT=0 stryker run",
     "start": "NODE_ENV=production node dist/main.js"
   },
   "dependencies": {
@@ -26,6 +27,8 @@
     "redis": "^4.6.13"
   },
   "devDependencies": {
+    "@stryker-mutator/jest-runner": "^8.2.2",
+    "@stryker-mutator/typescript-checker": "^8.2.2",
     "@swc/cli": "^0.3.9",
     "@swc/core": "^1.3.107",
     "@types/cors": "^2.8.17",
