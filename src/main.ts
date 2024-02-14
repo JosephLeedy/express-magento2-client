@@ -22,7 +22,7 @@ const exitGracefully = async (): Promise<void> => {
 }
 export let server: Server
 
-process.on('SIGINT', exitGracefully)
+process.once('SIGINT', exitGracefully)
 
 await redisClient.connect()
 

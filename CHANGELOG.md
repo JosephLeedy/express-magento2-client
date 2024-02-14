@@ -36,6 +36,7 @@ parameters
 - Query string parameters are now added to general OAuth parameters
 - A "The client is closed" error is no longer thrown by the Redis client when 
 quitting the production application
+- The exit handler now only runs once when the production application is killed
 
 ## [1.0.0] - 2024-01-09
 
