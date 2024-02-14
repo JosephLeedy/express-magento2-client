@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog][kac], and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-02-14
+
 ### Added
 - Requests for categories and products can now be passed through to the Magento 
 API via special `catalog/*` endpoints
@@ -49,5 +51,6 @@ quitting the production application
 
 [kac]: https://keepachangelog.com/en/1.0.0/
 [semver]: https://semver.org/spec/v2.0.0.html
-[Unreleased]: https://github.com/JosephLeedy/express-magento2-client/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/JosephLeedy/express-magento2-client/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/JosephLeedy/express-magento2-client/releases/tag/1.1.0
 [1.0.0]: https://github.com/JosephLeedy/express-magento2-client/releases/tag/1.0.0
