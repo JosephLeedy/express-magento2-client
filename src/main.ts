@@ -12,7 +12,9 @@ const port: number = parseInt(process.env.PORT || '3000', 10)
 const exitGracefully = async (): Promise<void> => {
     server.close()
 
-    await redisClient.quit()
+    if (redisClient.isOpen) {
+        await redisClient.quit()
+    }
 
     process.exitCode = 0
 }

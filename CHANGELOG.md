@@ -34,6 +34,8 @@ throwing an error
 - Sort order for OAuth signature parameters now correctly includes query string 
 parameters
 - Query string parameters are now added to general OAuth parameters
+- A "The client is closed" error is no longer thrown by the Redis client when 
+quitting the production application
 
 ## [1.0.0] - 2024-01-09
 
