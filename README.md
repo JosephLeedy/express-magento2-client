@@ -135,6 +135,7 @@ running this application for any errors that may have been output there
 | /catalog/products/:parameters | Retrieves the products from the Magento or Adobe Commerce API matching the given parameters<sup>1</sup> |
 | /oauth/callback               | Receives OAuth credentials from Magento or Adobe Commerce                                               |
 | /oauth/identity               | Exchanges the previously received OAuth credentials for a request token and an API token                |
+| /ping                         | Verifies that the application is running (returns an HTTP 2OO status)                                   |
 
 <sup>1</sup>Example products request:
 `https://app.product-viewer.test/catalog/products/searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=42`. 
