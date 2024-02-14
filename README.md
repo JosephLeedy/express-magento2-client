@@ -136,6 +136,7 @@ running this application for any errors that may have been output there
 | /oauth/callback               | Receives OAuth credentials from Magento or Adobe Commerce                                               |
 | /oauth/identity               | Exchanges the previously received OAuth credentials for a request token and an API token                |
 | /ping                         | Verifies that the application is running (returns an HTTP 2OO status)                                   |
+| /uptime                       | Returns a number indicating how long, in seconds, that the application has been running for             |
 
 <sup>1</sup>Example products request:
 `https://app.product-viewer.test/catalog/products/searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=42`. 
