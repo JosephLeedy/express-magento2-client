@@ -18,6 +18,10 @@ API via special `catalog/*` endpoints
 project
 - GitHub meta files have been added to the repository
 - GitHub's Dependabot service is now used to keep dependencies updated
+- A new "/ping" endpoint has been added to allow for verification that the app 
+is running
+- A new "/uptime" endpoint has been added to show how long the app has been  
+running
 
 ### Changed
 - Project has been renamed to reflect increase in scope
