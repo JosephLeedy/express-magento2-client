@@ -10,7 +10,9 @@ import {AddressInfo} from 'node:net'
 const app: Express = express()
 const port: number = parseInt(process.env.PORT || '3000', 10)
 const exitGracefully = async (): Promise<void> => {
-    server.close()
+    if (server.listening) {
+        server.close()
+    }
 
     if (redisClient.isOpen) {
         await redisClient.quit()
